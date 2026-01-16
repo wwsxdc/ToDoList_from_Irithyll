@@ -1,8 +1,19 @@
-import { useState } from "react";
-import "./App.css";
+import { useTodos } from "./hooks/useTodos";
+import { TodoForm, TodoList } from "./components";
 
 function App() {
-  return <div></div>;
-}
+  const { todos, addTodo, toggleTodo, deleteTodo, editTodo } = useTodos();
 
-export default App;
+  return (
+    <div className="app">
+      <h1>To-Do List</h1>
+      <TodoForm onAdd={addTodo} />
+      <TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+        onEdit={editTodo}
+      />
+    </div>
+  );
+}
