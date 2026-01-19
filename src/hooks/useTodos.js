@@ -1,4 +1,3 @@
-// Хук для управления задачами
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useTodos = () => {

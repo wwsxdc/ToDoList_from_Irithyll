@@ -1,4 +1,3 @@
-// Хук для работы с localStorage
 import { useState, useEffect } from "react";
 
 function getStorageValue(key, defaultValue) {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./TodoItem.module.css";
 
 const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -15,18 +16,56 @@ const TodoItem = ({ todo, onToggle, onDelete, onEdit }) => {
     }
   };
 
+  const handleCancel = () => {
+    setEditText(todo.text);
+    setIsEditing(false);
+  };
+
   return (
-    <li className={todo.completed ? "completed" : ""}>
-      <input type="checkbox" checked={todo.completed} onChange={onToggle} />
+    <li className={`${styles.item} ${todo.completed ? styles.completed : ""}`}>
+      <input
+        type="checkbox"
+        className={styles.checkbox}
+        checked={todo.completed}
+        onChange={onToggle}
+      />
       {isEditing ? (
-        <input value={editText} onChange={(e) => setEditText(e.target.value)} />
+        <>
+          <input
+            className={styles.editInput}
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
+          <button
+            className={`${styles.button} ${styles.saveButton}`}
+            onClick={handleEdit}
+          >
+            Сохранить
+          </button>
+          <button
+            className={`${styles.button} ${styles.cancelButton}`}
+            onClick={handleCancel}
+          >
+            Отмена
+          </button>
+        </>
       ) : (
-        <span>{todo.text}</span>
+        <>
+          <span className={styles.text}>{todo.text}</span>
+          <button
+            className={`${styles.button} ${styles.editButton}`}
+            onClick={handleEdit}
+          >
+            Редактировать
+          </button>
+        </>
       )}
-      <button onClick={handleEdit}>
-        {isEditing ? "Сохранить" : "Редактировать"}
+      <button
+        className={`${styles.button} ${styles.deleteButton}`}
+        onClick={onDelete}
+      >
+        Удалить
       </button>
-      <button onClick={onDelete}>Удалить</button>
     </li>
   );
 };
